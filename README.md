@@ -1,2 +1,2 @@
-# Bridge0.1
+# HuddleEd
 Schedule planning app for university courses
