@@ -6,11 +6,12 @@ from django.contrib.auth.models import User
 from django. contrib.auth.forms import UserCreationForm
 from django.db.models import Q 
 from django.contrib import messages
-from .models import Course, Study_Session
+from .models import Study_Session
 
 # Create your views here.
 def home(request):
     #render all study sessions 
+
     return render(request, 'home.html')
 
 def session(request, pk):
@@ -56,8 +57,14 @@ def logutUser(request):
     logout(request) 
     return redirect('base/login_page.html')
 
-def create_session():
+@login_required(login_url='/login')
+def create_session(request):
+   
     return 1
 
+@login_required(login_url='/login')
 def update_sessoin(): 
     return 1
+@login_required(login_url='/login')
+def delete_session(request): 
+    return
