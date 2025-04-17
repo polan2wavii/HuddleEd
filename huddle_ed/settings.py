@@ -60,7 +60,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangoprac.wsgi.application'
+WSGI_APPLICATION = 'huddle_ed.wsgi.application'
 
 
 # Database

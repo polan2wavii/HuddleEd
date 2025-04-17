@@ -17,7 +17,7 @@ class Study_Session(models.Model):
     host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     description = models.TextField(null=True, blank=True)
-    preferences = models.TextChoices(null=True, blank=True)
+    #preferences = models.TextChoices(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
