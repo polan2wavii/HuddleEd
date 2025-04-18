@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HuddleEd - Chat</title>
   <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
-  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'images/favicon.icon' %}" type="image/x-icon">
 </head>
 <body>
   <div class="container">
@@ -14,14 +14,15 @@
     <aside class="sidebar">
       <div class="logo">
         <h2>HuddleEd</h2>
+        <!--Allows user to upload a pfp-->
+       <a href="{% url 'profile' %}" alt="profile">Profile</a>
       </div>
       <div class="channels">
         <h3>Channels</h3>
         <ul>
           <li class="channel active">#general</li>
-          <li class="channel">#study-group</li>
-          <li class="channel">#sports</li>
-          <li class="channel">#random</li>
+          <li class="channel">#study-sessions</li>
+          <li class="channel">#Create-Session</li>
         </ul>
       </div>
     </aside>

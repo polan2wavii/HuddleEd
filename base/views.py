@@ -40,10 +40,11 @@ def session(request, pk):
     preferences = session.preferences
 
     context = {'session': session, 'desciprtion': description, 'course': course, 'prefrences': preferences}
-    return render(request, 'base/session.html', context)
+    return render(request, 'session.html', context)
 
-def profile(request, pk):
-    user = User.objects.get(id=pk)
+@login_required(login_url='/login')
+def profile(request):
+    user = request.user
     sessions = user.studysession_set.all()
     context = {'user': user, 'sessions': sessions}
     return render(request, 'profile.html', context)
@@ -60,23 +61,26 @@ def register(request):
         return redirect('home')
     else: 
         messages.error("An error has occured. Try again later")
-    return render(request, 'base/register.html')
+    return render(request, 'register.html')
 
 def loginPage(request): 
-    page: 'login'
-    user = authenticate(username=request.POST.get('username'), passowrd=request.POST.get('password')) 
+    page = 'login'
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
 
-    if user is not None and user.is_authenticated:
-       login(request, user)
-       return redirect('home')
-    else: 
-        messages.error("username or password does not exist")
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else: 
+            messages.error(request, "Username or password does not exist")
 
-    return render(request, 'base/login_page.html')
+    return render(request, 'login_page.html', {'page': page})
 
 def logutUser(request):
     logout(request)
-    return redirect('base/login_page.html')
+    return redirect('login_page.html')
 
 @login_required(login_url='/login')
 def create_session(request):

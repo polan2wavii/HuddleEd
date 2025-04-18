@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile Page</title>
 </head>
 <body>
     
+    <header>
+        <h1>{user.username}</h1>
+        <p>Email: {user.email}</p>
+    </header>
+
+    <main>
+        <h2>My Sessions</h2>
+        <ul>
+            {% for session in sessions %}
+                <li>{{ session.name }} - {{ session.date }}</li>
+            {% endfor %}
+        </ul>
+    </main>
 </body>
 </html>
