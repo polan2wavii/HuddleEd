@@ -165,3 +165,12 @@ body {
   background-color: #26c6da;
   border-radius: 10px;
 }
+
+/*Profile Page Styling*/
+.login-card {
+  background-color: #26c6da;
+  border-radius: 10px;
+  padding: 20px;
+  color: #1e1e2f;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}

@@ -9,6 +9,7 @@ from django.contrib import messages
 from .models import Study_Session
 
 # Create your views here.
+@login_required(login_url='/login')
 def home(request):
     #render all study sessions 
     page = 'login'
@@ -53,15 +54,15 @@ def register(request):
     account = UserCreationForm()
     if request.method == 'POST': 
         account = UserCreationForm(request.POST)
-    if account.is_valid(): 
-        user = account.save(commit=False)
-        user.username = user.username.lower()
-        user.save()
-        login(request, user)
-        return redirect('home')
-    else: 
-        messages.error("An error has occured. Try again later")
-    return render(request, 'register.html')
+        if account.is_valid(): 
+            user = account.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else: 
+            messages.error(request, "An error has occurred. Try again later")
+    return render(request, 'register.html', {'account': account})
 
 def loginPage(request): 
     page = 'login'
