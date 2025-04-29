@@ -9,20 +9,38 @@
 </head>
 <body>
   <div class="container">
+    
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">
         <h2>HuddleEd</h2>
-        <!--Allows user to upload a pfp-->
-       <a href="{% url 'profile' %}" alt="profile">Profile</a>
+        
       </div>
       <div class="channels">
-        <h3>Feed</h3>
         <ul>
-          <li class="channel">Study Session</li>
-          <li class="channel"><a href="{% url 'create_session' %}">Create xSession</a></li>
+          <li class="channel"><a href="{% url 'profile' %}" alt="profile">Profile</a></li>
+          <li class="channel"><a href="{% url 'create_session' %}">Create Session</a></li>
+          <li class="channel"><a href="#find-partner">Find a Study partner</a></li>
         </ul>
       </div>
+
+      <section class="reminders" >
+        {% if upcoming %}
+          <div class="reminder-container">
+            <h3>🔔 Upcoming Sessions</h3>
+            <ul>
+              {% for session in upcoming %}
+                <div class="reminder-card">
+                  <li>
+                    <strong>{{ session.name }}</strong> – {{ session.date }} at {{ session.time }}<br>
+                    Course: {{ session.course }}
+                  </li>
+                </div>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </section>
     </aside>
 
     <!-- Chat Area -->
@@ -37,19 +55,40 @@
           {% endif %}
         </h3>
       </header>
-      <section class="session">
-        <ul>
-          {% for session in sessions %}
-            <li>
-              <h4>{{ session.name }}</h4>
-              <p>{{ session.description }}</p>
-              <p><strong>Date:</strong> {{ session.date }}</p>
-              <p><strong>Course:</strong> {{ session.course }}</p>
-            </li>
-          {% endfor %}
-        </ul>
-      </section>
+      
+          <ul>
+            {% for session in sessions %}
+            <div class="card-container">
+              <section class="session-card">
+                <li>
+                  <h4>Course: {{session.course }}</h4>
+                  <p>Description: {{ session.description }}</p>
+                  <p>Prefrences: {{session.prefrences}}</p>
+                  <p>Campus Location: {{ session.campus_location }}</p>
+                  <p><strong>Date:</strong> {{ session.date }}</p>
+                  <p><strong>Host:</strong> {{ session.host }}</p>
+                </li>
+                <button type="submit">Join</button>
+              </section>
+            </div>
+            {% endfor %}
+          </ul>
+    
     </main>
+    <div class="dashboard-layout">
+      <aside class="sidebar-left">
+        <!-- Your sidebar links -->
+      </aside>
+    
+      <main class="main-content">
+        <!-- Study session feed, reminders, etc. -->
+      </main>
+    
+      <aside class="messages-container">
+        <h3>Messages</h3>
+        <!-- Message content -->
+      </aside>
+    </div>
   </div>
 </body>
 </html>

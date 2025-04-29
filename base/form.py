@@ -6,4 +6,4 @@ class StudySessionForm(ModelForm):
     class Meta:
         model = Study_Session
         fields = '__all__'
-        exclude = ['host', 'course']
+        exclude = ['host']

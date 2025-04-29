@@ -1,17 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Session</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Session</title>
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
 </head>
 <body>
+  <div class="delete-container">
     <h1>Are you sure you want to delete this session?</h1>
     <p><strong>{{ obj.name }}</strong></p>
     <form method="POST">
-        {% csrf_token %}
-        <button type="submit">Yes, Delete</button>
-        <a href="{% url 'home' %}">Cancel</a>
+      {% csrf_token %}
+      <button type="submit">Yes, Delete</button>
+      <a href="{% url 'home' %}">Cancel</a>
     </form>
+  </div>
 </body>
 </html>
+<!-- This template is used to confirm the deletion of a study session. It displays the session name and provides options to confirm or cancel the deletion. -->
