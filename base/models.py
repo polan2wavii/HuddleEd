@@ -13,15 +13,15 @@ class Course(models.Model):
 
 #study session mdoel
 class Study_Session(models.Model):
-    #unqiue attributes of a study rsession
-    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # Unique attributes of a study session
+    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='study_sessions')
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=255, null=True)  # Add a name field
     description = models.TextField(null=True, blank=True)
-    #preferences = models.TextChoices(null=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-    #order based on creation
+    # Order based on creation
     class Meta: 
         ordering = ['-updated', 'created']
     

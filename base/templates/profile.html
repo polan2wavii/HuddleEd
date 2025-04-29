@@ -1,22 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
 </head>
 <body>
     
     <header>
-        <h1>{user.username}</h1>
-        <p>Email: {user.email}</p>
+        <h1>{{user.username}}</h1>
+        <p>Email: {{user.email}}</p>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
     </header>
 
     <main>
         <h2>My Sessions</h2>
         <ul>
             {% for session in sessions %}
-                <li>{{ session.name }} - {{ session.date }}</li>
+                <li>
+                    <h4>{{ session.name }}</h4>
+                    <p>{{ session.description }}</p>
+                    <p><strong>Date:</strong> {{ session.date }}</p>
+                    <p><strong>Course:</strong> {{ session.course }}</p>
+                    <a href="{% url 'delete_session' session.id %}">Delete</a> <!-- Link to delete session -->
+                </li>
+            {% empty %}
+                <li>No sessions available.</li>
             {% endfor %}
         </ul>
     </main>

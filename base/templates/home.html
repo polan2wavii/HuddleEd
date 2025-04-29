@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HuddleEd - Chat</title>
   <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
-  <link rel="icon" href="{% static 'images/favicon.icon' %}" type="image/x-icon">
 </head>
 <body>
   <div class="container">
@@ -21,7 +20,7 @@
         <h3>Feed</h3>
         <ul>
           <li class="channel">Study Session</li>
-          <li class="channel">Create xSession</li>
+          <li class="channel"><a href="{% url 'create_session' %}">Create xSession</a></li>
         </ul>
       </div>
     </aside>
@@ -29,20 +28,27 @@
     <!-- Chat Area -->
     <main class="chat-area">
       <header class="chat-header">
-        <h2>#general</h2>
+        <h2>Study Sessions Happening Now!</h2>
+        <h3>
+          {% if sessions_count > 0 %}
+            {{ sessions_count }} study sessions available
+          {% else %}
+            No study sessions available
+          {% endif %}
+        </h3>
       </header>
-      <section class="messages">
-        <div class="message">
-          <span class="user">John Doe:</span> Hey everyone, let's get started on the project!
-        </div>
-        <div class="message">
-          <span class="user">Jane Smith:</span> I'm in! What should we do first?
-        </div>
+      <section class="session">
+        <ul>
+          {% for session in sessions %}
+            <li>
+              <h4>{{ session.name }}</h4>
+              <p>{{ session.description }}</p>
+              <p><strong>Date:</strong> {{ session.date }}</p>
+              <p><strong>Course:</strong> {{ session.course }}</p>
+            </li>
+          {% endfor %}
+        </ul>
       </section>
-      <footer class="input-area">
-        <input type="text" placeholder="Type your message..." />
-        <button>Send</button>
-      </footer>
     </main>
   </div>
 </body>
