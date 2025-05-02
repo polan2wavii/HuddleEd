@@ -24,6 +24,15 @@ a {
   overflow: hidden;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 50px;
+  
+}
+
 .sidebar {
   width: 280px;
   background: linear-gradient(180deg, #252540 0%, #1e1e2f 100%); /* Gradient background */
@@ -172,6 +181,15 @@ a {
 
 /*Log in styling*/
 /* Login Card */
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background-color: #1e1e2f; 
+}
+
 .login-card {
   background-color: #2f2f45;
   border-radius: 16px;
@@ -260,7 +278,7 @@ a {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px
+    padding: 20px;
    }
 
   /* =======================

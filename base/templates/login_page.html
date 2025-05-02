@@ -11,7 +11,7 @@
     <header>
         <h1>Welcome to HuddleEd</h1>
     </header>
-
+<div class="login-wrapper"> 
     <div class="login-card">
         <p>Login</p>
         <form method="POST" action="{% url 'login' %}">
@@ -21,8 +21,8 @@
             <button type="submit">Login</button>
         </form>
         <h6>Haven't signed up?</h6>
-        <h7><a href="{% url 'register'%}">Click here to sign up</a></h7>
+        <h6><a href="{% url 'register'%}">Click here to sign up</a></h6>
     </div>
-    
+</div> 
 </body>
 </html>
