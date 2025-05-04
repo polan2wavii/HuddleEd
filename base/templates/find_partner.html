@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Group or Partner</title>
+    <style>
+        /* Modal styles */
+        #messageModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid black;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #modalBackdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .modal-footer {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .modal-footer button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find a Group or Partner</h1>
+        <p>Welcome, {{ user.username }}</p>
+        <a href="{% url 'home' %}" style="background-color: red;">Home</a>
+    </header>
+    
+    <main>
+        <section>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Search</button>
+            </form>
+            
+            <ul>
+                {% for user in users %}
+                <li>
+                    {{ user.username }}
+                    <button type="button" onclick="showMessageModal('{{ user.username }}')">Message</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="modalBackdrop" onclick="closeModal()"></div>
+    <div id="messageModal">
+        <div class="modal-header">
+            <h3 id="modalUsername"></h3>
+        </div>
+        <textarea id="messageInput" rows="4" cols="30" placeholder="Type your message here..."></textarea>
+        <div class="modal-footer">
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function showMessageModal(username) {
+            // Set the username in the modal
+            document.getElementById('modalUsername').innerText = `Message to ${username}`;
+            // Show the modal and backdrop
+            document.getElementById('messageModal').style.display = 'block';
+            document.getElementById('modalBackdrop').style.display = 'block';
+        }
+
+        function closeModal() {
+            // Hide the modal and backdrop
+            document.getElementById('messageModal').style.display = 'none';
+            document.getElementById('modalBackdrop').style.display = 'none';
+            // Clear the message input
+            document.getElementById('messageInput').value = '';
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('messageInput').value;
+            const username = document.getElementById('modalUsername').innerText.replace('Message to ', '');
+            if (message) {
+                alert(`Your message to ${username}: "${message}" has been sent!`);
+                closeModal();
+                // Optionally, send the message to the server using AJAX
+            } else {
+                alert('Please enter a message before sending.');
+            }
+        }
+    </script>
+</body>
+</html>

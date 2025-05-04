@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>message {{user.username}}</title>
+</head>
+<body>
+<form>
+    <header>
+        <h1>Message {{user.username}}</h1>
+        <a href="{% url 'home' %}" style="background-color: red;">Home</a>
+    </header>
+
+    <main>
+        <section>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+</form>
+</body>
+</html>

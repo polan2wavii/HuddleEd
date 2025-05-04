@@ -20,7 +20,7 @@
         <ul>
           <li class="channel"><a href="{% url 'profile' %}" alt="profile">Profile</a></li>
           <li class="channel"><a href="{% url 'create_session' %}">Create Session</a></li>
-          <li class="channel"><a href="#find-partner">Find a Study partner</a></li>
+          <li class="channel"><a href="{% url 'find_partner'%}">Find a Study partner</a></li>
         </ul>
       </div>
 
@@ -76,18 +76,29 @@
     
     </main>
     <div class="dashboard-layout">
-      <aside class="sidebar-left">
-        <!-- Your sidebar links -->
-      </aside>
-    
-      <main class="main-content">
-        <!-- Study session feed, reminders, etc. -->
-      </main>
+
     
       <aside class="messages-container">
         <h3>Messages</h3>
-        <!-- Message content -->
-      </aside>
+        <div class="message-list">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message-item">
+                        <p><strong>From:</strong> {{ message.sender.username }}</p>
+                        <p>{{ message.content }}</p>
+                        <p class="timestamp">{{ message.created_at|date:"M d, Y H:i" }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No messages yet.</p>
+            {% endif %}
+        </div>
+        <!-- Message input -->
+        <div class="input-bar">
+            <input type="text" placeholder="Type your message here..." class="message-input">
+            <button type="submit" class="send-button">Send</button>
+        </div>
+    </aside>
     </div>
   </div>
 </body>

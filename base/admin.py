@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Study_Session, Course
+from .models import Study_Session, Course, Message
 # Register your models here.
 
 
@@ -13,3 +13,4 @@ class StudySessionAdmin(admin.ModelAdmin):
         
 admin.site.register(Study_Session)
 admin.site.register(Course)
+admin.site.register(Message)

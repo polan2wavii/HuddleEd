@@ -7,9 +7,10 @@ from django. contrib.auth.forms import UserCreationForm
 from django.db.models import Q 
 from django.contrib import messages
 from .models import Study_Session, Course
-from .form import StudySessionForm
+from .form import StudySessionForm, UserSearchForm
 from datetime import datetime, timedelta
 from django.utils.timezone import now
+from .models import Message
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -18,6 +19,7 @@ def home(request):
 
     sessions = Study_Session.objects.all()
     sessions_count = sessions.count()
+    messages = Message.objects.filter(receiver=request.user).order_by('-created_at')
 
     #reminder purposes 
     today = now().date()
@@ -27,7 +29,7 @@ def home(request):
         date__range=[today, tomorrow]
     ).order_by('date', 'time')
 
-    context = {'sessions': sessions, 'search_query': search_query, 'sessions_count': sessions_count, 'upcoming': upcoming}
+    context = {'sessions': sessions, 'search_query': search_query, 'sessions_count': sessions_count, 'upcoming': upcoming, 'messages': messages}
     return render(request, 'home.html', context)
 
 
@@ -112,3 +114,28 @@ def delete_session(request, pk):
         return redirect('home')
     
     return render(request, 'delete_session.html', {'obj': session})
+
+#search for users
+def user_search_view(request):
+    form = UserSearchForm(request.POST)
+    if form.is_valid():
+        selected_user = form.cleaned_data.get('user')
+        if selected_user:
+            users = User.objects.filter(username__icontains=selected_user.username)
+        else:
+            users = User.objects.all()
+    else:
+        users = User.objects.all()
+
+    context = {'form': form, 'users': users}
+    return render(request, 'find_partner.html', context)
+
+#message another user
+def message_user(request, user_id):
+    user = User.objects.get(id=user_id)
+    if request.method == 'POST':
+        message = request.POST.get('message')
+        # Handle sending the message to the user
+        messages.success(request, 'Message sent successfully.')
+        return redirect('home')
+    return render(request, 'message_user.html', {'user': user})

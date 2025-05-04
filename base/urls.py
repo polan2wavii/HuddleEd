@@ -11,4 +11,6 @@ urlpatterns = [
     path('create_session', views.create_session, name='create_session'),
     path('delete_session/<str:pk>', views.delete_session, name='delete_session'),
     path('update_session/<str:pk>', views.update_session, name="update_session"),
+    path('find_partner/', views.user_search_view, name='find_partner'),
+    #path('find_group/', views.find_group, name='find_group'),
 ]
