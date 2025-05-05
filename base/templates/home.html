@@ -9,12 +9,10 @@
 </head>
 <body>
   <div class="container">
-    
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">
         <h2>HuddleEd</h2>
-        
       </div>
       <div class="channels">
         <ul>
@@ -24,7 +22,7 @@
         </ul>
       </div>
 
-      <section class="reminders" >
+      <section class="reminders">
         {% if upcoming %}
           <div class="reminder-container">
             <h3>🔔 Upcoming Sessions</h3>
@@ -56,50 +54,47 @@
         </h3>
       </header>
       
-          <ul>
-            {% for session in sessions %}
-            <div class="card-container">
-              <section class="session-card">
-                <li>
-                  <h4>Course: {{session.course }}</h4>
-                  <p>Description: {{ session.description }}</p>
-                  <p>Prefrences: {{session.prefrences}}</p>
-                  <p>Campus Location: {{ session.campus_location }}</p>
-                  <p><strong>Date:</strong> {{ session.date }}</p>
-                  <p><strong>Host:</strong> {{ session.host }}</p>
-                </li>
-                <button type="submit">Join</button>
-              </section>
-            </div>
-            {% endfor %}
-          </ul>
-    
+      <ul>
+        {% for session in sessions %}
+        <div class="card-container">
+          <section class="session-card">
+            <li>
+              <h4>Course: {{ session.course }}</h4>
+              <p>Description: {{ session.description }}</p>
+              <p>Preferences: {{ session.prefrences }}</p>
+              <p>Campus Location: {{ session.campus_location }}</p>
+              <p><strong>Date:</strong> {{ session.date }}</p>
+              <p><strong>Host:</strong> {{ session.host }}</p>
+            </li>
+            <button type="submit" class="join-button">Join</button>
+          </section>
+        </div>
+        {% endfor %}
+      </ul>
     </main>
-    <div class="dashboard-layout">
 
-    
-      <aside class="messages-container">
-        <h3>Messages</h3>
-        <div class="message-list">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="message-item">
-                        <p><strong>From:</strong> {{ message.sender.username }}</p>
-                        <p>{{ message.content }}</p>
-                        <p class="timestamp">{{ message.created_at|date:"M d, Y H:i" }}</p>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>No messages yet.</p>
-            {% endif %}
-        </div>
-        <!-- Message input -->
-        <div class="input-bar">
-            <input type="text" placeholder="Type your message here..." class="message-input">
-            <button type="submit" class="send-button">Send</button>
-        </div>
+    <!-- Messages Sidebar -->
+    <aside class="messages-container">
+      <h3>Messages</h3>
+      <div class="message-list">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message-item">
+              <p><strong>From:</strong> {{ message.sender.username }}</p>
+              <p>{{ message.content }}</p>
+              <p class="timestamp">{{ message.created_at|date:"M d, Y H:i" }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p>No messages yet.</p>
+        {% endif %}
+      </div>
+      <!-- Message input -->
+      <div class="input-bar">
+        <input type="text" placeholder="Type your message here..." class="message-input">
+        <button type="submit" class="send-button">Send</button>
+      </div>
     </aside>
-    </div>
   </div>
 </body>
 </html>
